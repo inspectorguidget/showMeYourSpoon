@@ -9,6 +9,7 @@ import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtNamedElement;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.path.CtRole;
 import spoon.reflect.reference.CtReference;
 import spoon.reflect.visitor.CtScanner;
 
@@ -16,6 +17,7 @@ public class BasicVisitor extends CtScanner {
 	final boolean hideImplicit;
 	final BiConsumer<Integer, String> proc;
 	int level;
+	CtRole currRole;
 
 	public BasicVisitor(final BiConsumer<Integer, String> proc, final boolean hideImplicit) {
 		super();
@@ -25,12 +27,15 @@ public class BasicVisitor extends CtScanner {
 	}
 
 	@Override
-	public void scan(final CtElement element) {
+	public void scan(final CtRole role, final CtElement element) {
 		// Filtering out implicit elements;
 		if(element != null && hideImplicit && element.isImplicit()) {
 			return;
 		}
-		super.scan(element);
+
+		currRole = role;
+		super.scan(role, element);
+		currRole = null;
 	}
 
 
@@ -38,8 +43,15 @@ public class BasicVisitor extends CtScanner {
 	protected void enter(final CtElement elt) {
 		level++;
 
-		final String label = elt.getClass().getSimpleName().replaceAll("Impl$", "") +
-			(elt.isImplicit() ? " (implicit)" : "");
+		String label = elt.getClass().getSimpleName().replaceAll("Impl$", "");
+
+		if(elt.isImplicit()) {
+			label += " (implicit)";
+		}
+
+		if(currRole != null) {
+			label += " (role: " + currRole + ")";
+		}
 
 		if(elt instanceof CtType<?>) {
 			proc.accept(level, label + ": " + ((CtType<?>) elt).getSimpleName());
