@@ -10,5 +10,4 @@ module showmeyourspoon {
 	exports showmeyourspoon.instrument to javafx.fxml;
 
 	opens showmeyourspoon.instrument to javafx.fxml;
-	opens showmeyourspoon.command to javafx.fxml;
 }
