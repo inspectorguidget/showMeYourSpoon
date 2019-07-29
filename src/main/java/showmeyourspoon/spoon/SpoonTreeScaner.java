@@ -13,13 +13,13 @@ import spoon.reflect.path.CtRole;
 import spoon.reflect.reference.CtReference;
 import spoon.reflect.visitor.CtScanner;
 
-public class BasicVisitor extends CtScanner {
+public class SpoonTreeScaner extends CtScanner {
 	final boolean hideImplicit;
 	final BiConsumer<Integer, String> proc;
 	int level;
 	CtRole currRole;
 
-	public BasicVisitor(final BiConsumer<Integer, String> proc, final boolean hideImplicit) {
+	public SpoonTreeScaner(final BiConsumer<Integer, String> proc, final boolean hideImplicit) {
 		super();
 		this.hideImplicit = hideImplicit;
 		this.proc = proc;

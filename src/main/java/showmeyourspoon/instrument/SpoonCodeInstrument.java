@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeView;
-import showmeyourspoon.command.UpdateAST;
+import showmeyourspoon.command.UpdateSpoonTree;
 
 public class SpoonCodeInstrument extends JfxInstrument implements Initializable {
 	@FXML TextArea spoonCode;
@@ -21,7 +21,7 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 
 	@Override
 	protected void configureBindings() {
-		textInputBinder(i -> new UpdateAST(spoonAST))
+		textInputBinder(i -> new UpdateSpoonTree(spoonAST))
 			.on(spoonCode)
 			.then((i, c) -> c.setCode(i.getWidget().getText()))
 			.bind();

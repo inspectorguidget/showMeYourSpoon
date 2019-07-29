@@ -2,17 +2,17 @@ package showmeyourspoon.command;
 
 import io.interacto.command.CommandImpl;
 import javafx.scene.control.TreeView;
-import showmeyourspoon.spoon.BasicVisitor;
+import showmeyourspoon.spoon.SpoonTreeScaner;
 import showmeyourspoon.spoon.TreePrinter;
 import spoon.Launcher;
 import spoon.compiler.Environment;
 import spoon.support.compiler.VirtualFile;
 
-public class UpdateAST extends CommandImpl {
+public class UpdateSpoonTree extends CommandImpl {
 	String code;
 	final TreeView<String> spoonAST;
 
-	public UpdateAST(final TreeView<String> spoonAST) {
+	public UpdateSpoonTree(final TreeView<String> spoonAST) {
 		super();
 		this.spoonAST = spoonAST;
 	}
@@ -29,7 +29,7 @@ public class UpdateAST extends CommandImpl {
 		env.setLevel("OFF");
 		env.setComplianceLevel(11);
 
-		launcher.buildModel().getRootPackage().accept(new BasicVisitor(new TreePrinter(spoonAST), true));
+		launcher.buildModel().getRootPackage().accept(new SpoonTreeScaner(new TreePrinter(spoonAST), true));
 	}
 
 	public void setCode(final String code) {
