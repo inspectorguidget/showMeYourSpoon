@@ -15,14 +15,22 @@ import spoon.reflect.visitor.CtScanner;
 
 public class SpoonTreeScaner extends CtScanner {
 	final boolean hideImplicit;
-	final BiConsumer<Integer, String> proc;
+	final BiConsumer<Integer, String> printer;
+	/** The current deepness level. */
 	int level;
+	/** the role of the current element. May be null. */
 	CtRole currRole;
 
-	public SpoonTreeScaner(final BiConsumer<Integer, String> proc, final boolean hideImplicit) {
+	/**
+	 * @param printer The printer that is in charge of showing the Spoon tree.
+	 * The first argument (integer), is the deepness of the current element in the tree structure.
+	 * The second argument (string), is the label of the current element to display.
+	 * @param hideImplicit If true, the scanner will ignore implicit elements
+	 */
+	public SpoonTreeScaner(final BiConsumer<Integer, String> printer, final boolean hideImplicit) {
 		super();
 		this.hideImplicit = hideImplicit;
-		this.proc = proc;
+		this.printer = printer;
 		level = 0;
 	}
 
@@ -43,6 +51,8 @@ public class SpoonTreeScaner extends CtScanner {
 	protected void enter(final CtElement elt) {
 		level++;
 
+		// Removing the trail Impl. Make the assumption that any implementation class
+		// has its interface (same name without the trailing 'Impl'
 		String label = elt.getClass().getSimpleName().replaceAll("Impl$", "");
 
 		if(elt.isImplicit()) {
@@ -54,54 +64,54 @@ public class SpoonTreeScaner extends CtScanner {
 		}
 
 		if(elt instanceof CtType<?>) {
-			proc.accept(level, label + ": " + ((CtType<?>) elt).getSimpleName());
+			printer.accept(level, label + ": " + ((CtType<?>) elt).getSimpleName());
 			return;
 		}
 
 		if(elt instanceof CtNamedElement) {
-			proc.accept(level, label + ": " + ((CtNamedElement) elt).getSimpleName());
+			printer.accept(level, label + ": " + ((CtNamedElement) elt).getSimpleName());
 			return;
 		}
 
 		if(elt instanceof CtReference) {
-			proc.accept(level, label + ": " + ((CtReference) elt).getSimpleName());
+			printer.accept(level, label + ": " + ((CtReference) elt).getSimpleName());
 			return;
 		}
 
 		if(elt instanceof CtVariableAccess<?>) {
 			final CtVariableAccess<?> varaccess = (CtVariableAccess<?>) elt;
 			final String txt = ": " + ((varaccess.getVariable() != null) ? varaccess.getVariable().getSimpleName() : "(null)");
-			proc.accept(level, label + txt);
+			printer.accept(level, label + txt);
 			return;
 		}
 
 		if(elt instanceof CtTypeAccess<?>) {
 			final CtTypeAccess<?> typeaccess = (CtTypeAccess<?>) elt;
 			final String txt = ": " + ((typeaccess.getAccessedType() != null) ? typeaccess.getAccessedType().getSimpleName() : "(null)");
-			proc.accept(level, label + txt);
+			printer.accept(level, label + txt);
 			return;
 		}
 
 		if(elt instanceof CtLiteral<?>) {
-			proc.accept(level, label + ": " + ((CtLiteral<?>) elt).getValue());
+			printer.accept(level, label + ": " + ((CtLiteral<?>) elt).getValue());
 			return;
 		}
 
 		if(elt instanceof CtAbstractInvocation<?>) {
 			final CtAbstractInvocation<?> invoc = (CtAbstractInvocation<?>) elt;
 			final String txt = ": " + ((invoc.getExecutable() != null) ? invoc.getExecutable().getSimpleName() : "(null)");
-			proc.accept(level, label + txt);
+			printer.accept(level, label + txt);
 			return;
 		}
 
 		if(elt instanceof CtAnnotation<?>) {
 			final CtAnnotation<?> annot = (CtAnnotation<?>) elt;
 			final String txt = ": " + ((annot.getAnnotationType() != null) ? annot.getAnnotationType().getSimpleName() : "(null)");
-			proc.accept(level, label + txt);
+			printer.accept(level, label + txt);
 			return;
 		}
 
-		proc.accept(level, label);
+		printer.accept(level, label);
 	}
 
 	@Override
