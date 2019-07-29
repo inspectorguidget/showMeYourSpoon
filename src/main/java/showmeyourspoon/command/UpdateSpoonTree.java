@@ -22,7 +22,7 @@ public class UpdateSpoonTree extends CommandImpl {
 		final Launcher launcher = new Launcher();
 		final Environment env = launcher.getEnvironment();
 
-		launcher.addInputResource(new VirtualFile(code));
+		launcher.addInputResource(new VirtualFile(code, "chunk.java"));
 		env.setNoClasspath(true);
 		env.setAutoImports(true);
 		env.disableConsistencyChecks();
