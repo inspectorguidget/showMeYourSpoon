@@ -11,27 +11,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jfx.version>11.0.2</jfx.version>
         <java.version>11</java.version>
-        <junit.version>5.4.2</junit.version>
-        <javafx.platform>linux</javafx.platform>
-        <jmods.path>${java.home}</jmods.path>
     </properties>
-
-    <profiles>
-        <profile>
-            <id>win</id>
-            <properties>
-                <javafx.platform>win</javafx.platform>
-                <jmods.path>/opt/jdk-11-win</jmods.path>
-            </properties>
-        </profile>
-        <profile>
-            <id>mac</id>
-            <properties>
-                <javafx.platform>mac</javafx.platform>
-                <jmods.path>/opt/jdk-11-mac/Contents/Home</jmods.path>
-            </properties>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>
