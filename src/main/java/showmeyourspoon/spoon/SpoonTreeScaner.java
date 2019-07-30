@@ -17,8 +17,13 @@ import spoon.reflect.path.CtRole;
 import spoon.reflect.reference.CtReference;
 import spoon.reflect.visitor.CtScanner;
 
+/**
+ * Scans Java code using a Spoon scanner to extract Spoon tree information.
+ */
 public class SpoonTreeScaner extends CtScanner {
+	/** If true, the scanner will ignore implicit elements */
 	private final boolean hideImplicit;
+	/** The printer that is in charge of showing the Spoon tree. */
 	private final @NotNull SpoonElementVisitor printer;
 	/** The current deepness level. */
 	private int level;

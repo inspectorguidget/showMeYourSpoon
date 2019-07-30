@@ -43,12 +43,20 @@ public class SelectCodeText extends CommandImpl {
 		}
 	}
 
+
+	/**
+	 * Computes the number of characters that correspond to the beginning of the given line number.
+	 * Mandatory to select code as the JavaFX text field API is based on characters for selection.
+	 * @param line The line number.
+	 * @return The number of characters.
+	 */
 	private int getCharPositionOfLine(final int line) {
 		final String eol = System.getProperty("line.separator");
 		final int lengtheol = eol.length();
 		final String[] lines = spoonCode.getText().split(eol);
 
-		return IntStream.range(0, line)
+		return IntStream
+			.range(0, line)
 			.map(i -> lines[i].length() + lengtheol)
 			.sum();
 	}
