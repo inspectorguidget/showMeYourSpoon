@@ -10,10 +10,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SelectCodeText extends CommandImpl {
-	static final Pattern PATTERN = Pattern.compile(".*, lines: \\[(\\d+), (\\d+)\\]$");
+	private static final Pattern PATTERN = Pattern.compile(".*, lines: \\[(\\d+), (\\d+)\\]$");
 
-	final @Nullable String item;
-	final @NotNull TextArea spoonCode;
+	private final @Nullable String item;
+	private final @NotNull TextArea spoonCode;
 
 	public SelectCodeText(final @NotNull TextArea spoonCode, final @Nullable String item) {
 		super();

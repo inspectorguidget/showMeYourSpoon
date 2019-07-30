@@ -13,13 +13,13 @@ import spoon.support.compiler.VirtualFile;
 
 public class UpdateSpoonTree extends CommandImpl {
 	/** The Java code to analyse. */
-	@Nullable String code;
+	private @Nullable String code;
 	/** The tree widget that shows the Spoon tree. */
-	final @NotNull TreeView<String> spoonAST;
+	private final @NotNull TreeView<String> spoonAST;
 	/** Hides or not the implicit Spoon elements. */
-	final boolean hideImplicit;
+	private final boolean hideImplicit;
 	/** The analysis level to consider. */
-	final @NotNull TreeLevel treeLevel;
+	private final @NotNull TreeLevel treeLevel;
 
 	public UpdateSpoonTree(final @NotNull TreeView<String> spoonAST, final boolean hideImplicit, final @NotNull String code,
 		final @NotNull TreeLevel treeLevel) {
