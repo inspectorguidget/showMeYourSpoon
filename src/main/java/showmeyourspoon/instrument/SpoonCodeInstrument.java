@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
+import showmeyourspoon.command.SelectCodeItem;
 import showmeyourspoon.command.SelectCodeText;
 import showmeyourspoon.command.TreeLevel;
 import showmeyourspoon.command.UpdateSpoonTree;
@@ -33,6 +34,7 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 
 	@Override
 	protected void configureBindings() {
+		// On text change, the spoon tree is rebuilt
 		textInputBinder(i -> new UpdateSpoonTree(spoonAST, hideImplicit.isSelected(), "", treeLevel.getValue()))
 			.on(spoonCode)
 			.then((i, c) -> c.setCode(i.getWidget().getText()))
@@ -41,14 +43,17 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 		final Supplier<UpdateSpoonTree> cmdsupplier =
 			() -> new UpdateSpoonTree(spoonAST, hideImplicit.isSelected(), spoonCode.getText(), treeLevel.getValue());
 
+		// Checking the checkbox hides or shows the implicit elements
 		checkboxBinder(cmdsupplier)
 			.on(hideImplicit)
 			.bind();
 
+		// Selecting an item of the combo box recomputes the spoon tree using the new analysis level
 		comboboxBinder(cmdsupplier)
 			.on(treeLevel)
 			.bind();
 
+		// Clicking on a tree item selects the corresponding Java code
 		nodeBinder(new Click(), i -> {
 				final SpoonTreeItem item = i.getSrcObject()
 					.filter(o -> o.getParent() instanceof TreeCell)
@@ -57,6 +62,12 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 				return new SelectCodeText(spoonCode, item.startPosition, item.endPosition);
 			})
 			.on(spoonAST)
+			.bind();
+
+		// Clicking in the text area (ie changing the caret position) selects (when relevant)
+		// the corresponding item in the Spoon tree
+		nodeBinder(new Click(), i -> new SelectCodeItem(spoonCode.getCaretPosition(), spoonAST))
+			.on(spoonCode)
 			.bind();
 	}
 }
