@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeView;
 import javafx.scene.text.Text;
@@ -15,6 +16,7 @@ import showmeyourspoon.command.UpdateSpoonTree;
 public class SpoonCodeInstrument extends JfxInstrument implements Initializable {
 	@FXML TextArea spoonCode;
 	@FXML TreeView<String> spoonAST;
+	@FXML CheckBox hideImplicit;
 
 
 	@Override
@@ -24,9 +26,13 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 
 	@Override
 	protected void configureBindings() {
-		textInputBinder(i -> new UpdateSpoonTree(spoonAST))
+		textInputBinder(i -> new UpdateSpoonTree(spoonAST, hideImplicit.isSelected(), null))
 			.on(spoonCode)
 			.then((i, c) -> c.setCode(i.getWidget().getText()))
+			.bind();
+
+		checkboxBinder(i -> new UpdateSpoonTree(spoonAST, hideImplicit.isSelected(), spoonCode.getText()))
+			.on(hideImplicit)
 			.bind();
 
 		nodeBinder(new Click(), i -> new SelectCodeText(spoonCode,

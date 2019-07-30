@@ -11,10 +11,13 @@ import spoon.support.compiler.VirtualFile;
 public class UpdateSpoonTree extends CommandImpl {
 	String code;
 	final TreeView<String> spoonAST;
+	final boolean hideImplicit;
 
-	public UpdateSpoonTree(final TreeView<String> spoonAST) {
+	public UpdateSpoonTree(final TreeView<String> spoonAST, final boolean hideImplicit, final String code) {
 		super();
 		this.spoonAST = spoonAST;
+		this.hideImplicit = hideImplicit;
+		this.code = code;
 	}
 
 	@Override
@@ -29,7 +32,7 @@ public class UpdateSpoonTree extends CommandImpl {
 		env.setLevel("OFF");
 		env.setComplianceLevel(11);
 
-		launcher.buildModel().getRootPackage().accept(new SpoonTreeScaner(new TreePrinter(spoonAST), true));
+		launcher.buildModel().getRootPackage().accept(new SpoonTreeScaner(new TreePrinter(spoonAST), hideImplicit));
 	}
 
 	public void setCode(final String code) {
