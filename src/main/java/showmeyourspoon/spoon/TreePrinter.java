@@ -10,17 +10,22 @@ public class TreePrinter implements SpoonElementVisitor {
 	final @NotNull TreeView<String> tree;
 	@Nullable TreeItem<String> currItem;
 	int currLevel;
+	final int levelsToIgnore;
 
-	public TreePrinter(final @NotNull TreeView<String> tree) {
+	public TreePrinter(final @NotNull TreeView<String> tree, final int levelsToIgnore) {
 		super();
+		this.levelsToIgnore = levelsToIgnore;
 		this.tree = tree;
 		this.tree.setRoot(null);
 		currItem = null;
-		tree.setShowRoot(false);
 	}
 
 	@Override
 	public void accept(final int level, final @NotNull String label, final @NotNull List<Integer> lines) {
+		if(level <= levelsToIgnore) {
+			return;
+		}
+
 		final TreeItem<String> item = new TreeItem<>(label + ", lines: " + lines);
 		item.setExpanded(true);
 
