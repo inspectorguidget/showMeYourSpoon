@@ -1,9 +1,9 @@
 package showmeyourspoon;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class ShowMe extends Application {
@@ -12,14 +12,8 @@ public class ShowMe extends Application {
 	}
 
 	@Override
-	public void start(final Stage primaryStage) {
-		try {
-			final BorderPane root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"));
-			final Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		}catch(final Exception ex) {
-			ex.printStackTrace();
-		}
+	public void start(final Stage primaryStage) throws IOException {
+		primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"))));
+		primaryStage.show();
 	}
 }
