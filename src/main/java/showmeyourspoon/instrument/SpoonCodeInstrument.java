@@ -26,7 +26,7 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 
 	@Override
 	protected void configureBindings() {
-		textInputBinder(i -> new UpdateSpoonTree(spoonAST, hideImplicit.isSelected(), null))
+		textInputBinder(i -> new UpdateSpoonTree(spoonAST, hideImplicit.isSelected(), ""))
 			.on(spoonCode)
 			.then((i, c) -> c.setCode(i.getWidget().getText()))
 			.bind();

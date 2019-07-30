@@ -6,14 +6,16 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class SelectCodeText extends CommandImpl {
 	static final Pattern PATTERN = Pattern.compile(".*, lines: \\[(\\d+), (\\d+)\\]$");
 
-	final String item;
-	final TextArea spoonCode;
+	final @Nullable String item;
+	final @NotNull TextArea spoonCode;
 
-	public SelectCodeText(final TextArea spoonCode, final String item) {
+	public SelectCodeText(final @NotNull TextArea spoonCode, final @Nullable String item) {
 		super();
 		this.spoonCode = spoonCode;
 		this.item = item;

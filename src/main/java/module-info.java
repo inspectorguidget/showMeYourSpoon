@@ -5,6 +5,7 @@ module showmeyourspoon {
 	requires javafx.fxml;
 	requires javafx.controls;
 	requires org.eclipse.jdt.core;
+	requires annotations;
 
 	exports showmeyourspoon to javafx.graphics;
 	exports showmeyourspoon.instrument to javafx.fxml;

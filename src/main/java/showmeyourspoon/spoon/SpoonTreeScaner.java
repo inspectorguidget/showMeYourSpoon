@@ -1,6 +1,8 @@
 package showmeyourspoon.spoon;
 
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import spoon.reflect.code.CtAbstractInvocation;
 import spoon.reflect.code.CtLiteral;
 import spoon.reflect.code.CtTypeAccess;
@@ -17,11 +19,11 @@ import spoon.reflect.visitor.CtScanner;
 
 public class SpoonTreeScaner extends CtScanner {
 	final boolean hideImplicit;
-	final SpoonElementVisitor printer;
+	final @NotNull SpoonElementVisitor printer;
 	/** The current deepness level. */
 	int level;
 	/** the role of the current element. May be null. */
-	CtRole currRole;
+	@Nullable CtRole currRole;
 
 	/**
 	 * @param printer The printer that is in charge of showing the Spoon tree.
@@ -30,7 +32,7 @@ public class SpoonTreeScaner extends CtScanner {
 	 * The third argument (list) contains the start and end line of the element. May be empty.
 	 * @param hideImplicit If true, the scanner will ignore implicit elements
 	 */
-	public SpoonTreeScaner(final SpoonElementVisitor printer, final boolean hideImplicit) {
+	public SpoonTreeScaner(final @NotNull SpoonElementVisitor printer, final boolean hideImplicit) {
 		super();
 		this.hideImplicit = hideImplicit;
 		this.printer = printer;
