@@ -62,6 +62,7 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 				return new SelectCodeText(spoonCode, item.startPosition, item.endPosition);
 			})
 			.on(spoonAST)
+			.when(i -> i.getSrcObject().filter(o -> o.getParent() instanceof TreeCell).isPresent())
 			.bind();
 
 		// Clicking in the text area (ie changing the caret position) selects (when relevant)
