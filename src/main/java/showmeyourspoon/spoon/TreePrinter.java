@@ -30,7 +30,8 @@ public class TreePrinter implements SpoonElementVisitor {
 			return;
 		}
 
-		final TreeItem<String> item = new TreeItem<>(label + ", lines: " + lines);
+		final String positionCode = lines.isEmpty() ? "" : ", position: " + lines;
+		final TreeItem<String> item = new TreeItem<>(label + positionCode);
 		item.setExpanded(true);
 
 		if(currItem == null) {

@@ -3,14 +3,13 @@ package showmeyourspoon.command;
 import io.interacto.command.CommandImpl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SelectCodeText extends CommandImpl {
-	private static final Pattern PATTERN = Pattern.compile(".*, lines: \\[(\\d+), (\\d+)\\]$");
+	private static final Pattern PATTERN = Pattern.compile(".*, position: \\[(\\d+), (\\d+)\\]$");
 
 	private final @Nullable String item;
 	private final @NotNull TextArea spoonCode;
@@ -32,8 +31,8 @@ public class SelectCodeText extends CommandImpl {
 			final Matcher matcher = PATTERN.matcher(item);
 
 			if(matcher.matches()) {
-				final int start = getCharPositionOfLine(Integer.parseInt(matcher.group(1)) - 1);
-				final int end = getCharPositionOfLine(Integer.parseInt(matcher.group(2)));
+				final int start = Integer.parseInt(matcher.group(1));
+				final int end = Integer.parseInt(matcher.group(2)) + 1;
 
 				Platform.runLater(() -> {
 					spoonCode.selectRange(start, end);
@@ -41,23 +40,5 @@ public class SelectCodeText extends CommandImpl {
 				});
 			}
 		}
-	}
-
-
-	/**
-	 * Computes the number of characters that correspond to the beginning of the given line number.
-	 * Mandatory to select code as the JavaFX text field API is based on characters for selection.
-	 * @param line The line number.
-	 * @return The number of characters.
-	 */
-	private int getCharPositionOfLine(final int line) {
-		final String eol = System.getProperty("line.separator");
-		final int lengtheol = eol.length();
-		final String[] lines = spoonCode.getText().split(eol);
-
-		return IntStream
-			.range(0, line)
-			.map(i -> lines[i].length() + lengtheol)
-			.sum();
 	}
 }

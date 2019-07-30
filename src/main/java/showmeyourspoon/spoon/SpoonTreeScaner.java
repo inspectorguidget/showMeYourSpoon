@@ -8,7 +8,6 @@ import spoon.reflect.code.CtLiteral;
 import spoon.reflect.code.CtTypeAccess;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.cu.SourcePosition;
-import spoon.reflect.cu.position.NoSourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtNamedElement;
@@ -68,10 +67,10 @@ public class SpoonTreeScaner extends CtScanner {
 		final SourcePosition pos = elt.getPosition();
 		final List<Integer> lines;
 
-		if(pos instanceof NoSourcePosition) {
-			lines = List.of();
+		if(pos.isValidPosition()) {
+			lines = List.of(pos.getSourceStart(), pos.getSourceEnd());
 		}else {
-			lines = List.of(pos.getLine(), pos.getEndLine());
+			lines = List.of();
 		}
 
 		if(elt.isImplicit()) {
