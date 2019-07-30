@@ -19,7 +19,7 @@ import spoon.reflect.visitor.CtScanner;
 /**
  * Scans Java code using a Spoon scanner to extract Spoon tree information.
  */
-public class SpoonTreeScaner extends CtScanner {
+public class SpoonTreeScanner extends CtScanner {
 	/** If true, the scanner will ignore implicit elements */
 	private final boolean hideImplicit;
 	/** The printer that is in charge of showing the Spoon tree. */
@@ -36,7 +36,7 @@ public class SpoonTreeScaner extends CtScanner {
 	 * The third argument (list) contains the start and end line of the element. May be empty.
 	 * @param hideImplicit If true, the scanner will ignore implicit elements
 	 */
-	public SpoonTreeScaner(final @NotNull SpoonElementVisitor printer, final boolean hideImplicit) {
+	public SpoonTreeScanner(final @NotNull SpoonElementVisitor printer, final boolean hideImplicit) {
 		super();
 		this.hideImplicit = hideImplicit;
 		this.printer = printer;

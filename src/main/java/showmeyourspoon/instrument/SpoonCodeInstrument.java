@@ -7,11 +7,14 @@ import java.util.ResourceBundle;
 import java.util.function.Supplier;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
+import javafx.stage.FileChooser;
+import showmeyourspoon.command.SaveTreeText;
 import showmeyourspoon.command.SelectCodeItem;
 import showmeyourspoon.command.SelectCodeText;
 import showmeyourspoon.command.TreeLevel;
@@ -23,6 +26,7 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 	@FXML private TreeView<String> spoonAST;
 	@FXML private CheckBox hideImplicit;
 	@FXML private ComboBox<TreeLevel> treeLevel;
+	@FXML private Button save;
 
 
 	@Override
@@ -69,6 +73,12 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 		// the corresponding item in the Spoon tree
 		nodeBinder(new Click(), i -> new SelectCodeItem(spoonCode.getCaretPosition(), spoonAST))
 			.on(spoonCode)
+			.bind();
+
+		// Clicking on the save button saves in a text file the text version of the Spoon tree
+		buttonBinder(i -> new SaveTreeText(new FileChooser().showSaveDialog(null), hideImplicit.isSelected(),
+				spoonCode.getText(), treeLevel.getValue()))
+			.on(save)
 			.bind();
 	}
 }

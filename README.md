@@ -12,6 +12,8 @@ This does not work when the clicked tree item refers to a code element that does
 
 The checkbox in the toolbar masks or shows the Java implicit elements (printed with `'(implicit)'` in the tree view).
 
+The button `Save` export the tree view of the current Java code in a text file.
+
 ![features](doc/appFeat.png)
 
 You can also click in the code area to select the corresponding tree item.
