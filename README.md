@@ -29,10 +29,10 @@ The `auto` level tries to detect the level automatically by starting parsing the
 
 ![auto](doc/appAuto.png)
 
-The `auto` level may fails, in particular with statements or expressions.
-So, users can define a specific level.
+The `auto` level may fail, in particular with statements or expressions.
+So users can define a specific level manually.
 
-The `class element` level corresponds to fields, methods, etc. of a class:
+The `class element` level corresponds to fields, methods, etc., of a class:
 
 ![auto](doc/appClassElt.png)
 
