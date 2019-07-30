@@ -41,7 +41,10 @@ public class TreePrinter implements SpoonElementVisitor {
 					currLevel--;
 					parent = parent.getParent();
 				}
-				parent.getChildren().add(item);
+
+				if(parent != null) {
+					parent.getChildren().add(item);
+				}
 			}
 		}
 

@@ -12,31 +12,90 @@ import spoon.reflect.CtModel;
 import spoon.support.compiler.VirtualFile;
 
 public class UpdateSpoonTree extends CommandImpl {
+	/** The Java code to analyse. */
 	@Nullable String code;
+	/** The tree widget that shows the Spoon tree. */
 	final @NotNull TreeView<String> spoonAST;
+	/** Hides or not the implicit Spoon elements. */
 	final boolean hideImplicit;
+	/** The analysis level to consider. */
+	final @NotNull TreeLevel treeLevel;
 
-	public UpdateSpoonTree(final @NotNull TreeView<String> spoonAST, final boolean hideImplicit, final @NotNull String code) {
+	public UpdateSpoonTree(final @NotNull TreeView<String> spoonAST, final boolean hideImplicit, final @NotNull String code,
+		final @NotNull TreeLevel treeLevel) {
 		super();
 		this.spoonAST = spoonAST;
 		this.hideImplicit = hideImplicit;
+		this.treeLevel = treeLevel;
 		this.code = code;
 	}
 
 	@Override
 	protected void doCmdBody() {
-		CtModel model = buildCode(code, 1);
-
-		if(model.getRootPackage().getTypes().isEmpty()) {
-			model = buildCode("public class ShowMeYourSpoonCapsule { " + code + "}", 2);
-		}
-
-		if(model.getRootPackage().getTypes().isEmpty()) {
-			buildCode("public class ShowMeYourSpoonCapsule { public void showmeyourspoonmethod() {" + code + "}}", 3);
+		switch(treeLevel) {
+			case AUTO:
+				buildClassLevel();
+				break;
+			case CLASS_ELEMENT:
+				buildClassElementLevel();
+				break;
+			case STATEMENT:
+				buildStatementLevel();
+				break;
+			case EXPRESSION:
+				buildExpressionLevel();
+				break;
 		}
 	}
 
-	private CtModel buildCode(final String theCode, final int levelsToIgnore) {
+	/**
+	 * Tries to build the Spoon model by considering the given code as a Java expression.
+	 */
+	private void buildExpressionLevel() {
+		buildCode("public class ShowMeYourSpoonCapsule { public Object showmeyourspoonmethod() { return "
+				+ code + ";}}", 5);
+	}
+
+	/**
+	 * Tries to build the Spoon model by considering the given code as a Java statement.
+	 */
+	private @NotNull CtModel buildStatementLevel() {
+		return buildCode("public class ShowMeYourSpoonCapsule { public void showmeyourspoonmethod() {" + code + "}}", 4);
+	}
+
+	/**
+	 * Tries to build the Spoon model by considering the given code as Java class elements.
+	 */
+	private @NotNull CtModel buildClassElementLevel() {
+		return buildCode("public class ShowMeYourSpoonCapsule { " + code + "}", 2);
+	}
+
+	/**
+	 * Tries to build the Spoon model by considering the given code as a Java class.
+	 */
+	private void buildClassLevel() {
+		CtModel model = buildCode(code, 1);
+
+		if(model.getRootPackage().getTypes().isEmpty()) {
+			model = buildClassElementLevel();
+		}
+
+		if(model.getRootPackage().getTypes().isEmpty()) {
+			model = buildStatementLevel();
+		}
+
+		if(model.getRootPackage().getTypes().isEmpty()) {
+			buildExpressionLevel();
+		}
+	}
+
+	/**
+	 * Tries to build a Spoon model.
+	 * @param theCode The code to analyse.
+	 * @param levelsToIgnore The number of levels not to display (depends on the analysis level).
+	 * @return The Spoon model.
+	 */
+	private @NotNull CtModel buildCode(final String theCode, final int levelsToIgnore) {
 		final Launcher launcher = new Launcher();
 		final Environment env = launcher.getEnvironment();
 
