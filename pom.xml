@@ -4,7 +4,7 @@
 
     <groupId>fr.inria.inspectorguidget</groupId>
     <artifactId>showmeyourspoon</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -93,7 +93,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>16.0.1-j11</version>
+            <version>16.0.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
