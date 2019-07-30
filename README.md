@@ -14,7 +14,10 @@ The checkbox in the toolbar masks or shows the Java implicit elements (printed w
 
 ![features](doc/appFeat.png)
 
+You can also click in the code area to select the corresponding tree item.
+On the next picture, the user clicked on `int`:
 
+![features](doc/appFeat2.png)
 
 ## Feature: analysis level
 
