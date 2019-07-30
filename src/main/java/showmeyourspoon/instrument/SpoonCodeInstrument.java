@@ -10,11 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
-import javafx.scene.text.Text;
 import showmeyourspoon.command.SelectCodeText;
 import showmeyourspoon.command.TreeLevel;
 import showmeyourspoon.command.UpdateSpoonTree;
+import showmeyourspoon.spoon.SpoonTreeItem;
 
 public class SpoonCodeInstrument extends JfxInstrument implements Initializable {
 	@FXML private TextArea spoonCode;
@@ -48,8 +49,13 @@ public class SpoonCodeInstrument extends JfxInstrument implements Initializable 
 			.on(treeLevel)
 			.bind();
 
-		nodeBinder(new Click(), i -> new SelectCodeText(spoonCode,
-				i.getSrcObject().filter(o -> o instanceof Text).map(o -> ((Text) o).getText()).orElse(null)))
+		nodeBinder(new Click(), i -> {
+				final SpoonTreeItem item = i.getSrcObject()
+					.filter(o -> o.getParent() instanceof TreeCell)
+					.map(o -> ((SpoonTreeItem) ((TreeCell<?>) o.getParent()).getTreeItem()))
+					.orElseThrow();
+				return new SelectCodeText(spoonCode, item.startPosition, item.endPosition);
+			})
 			.on(spoonAST)
 			.bind();
 	}
