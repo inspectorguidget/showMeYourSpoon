@@ -17,10 +17,10 @@ import showmeyourspoon.command.TreeLevel;
 import showmeyourspoon.command.UpdateSpoonTree;
 
 public class SpoonCodeInstrument extends JfxInstrument implements Initializable {
-	@FXML TextArea spoonCode;
-	@FXML TreeView<String> spoonAST;
-	@FXML CheckBox hideImplicit;
-	@FXML ComboBox<TreeLevel> treeLevel;
+	@FXML private TextArea spoonCode;
+	@FXML private TreeView<String> spoonAST;
+	@FXML private CheckBox hideImplicit;
+	@FXML private ComboBox<TreeLevel> treeLevel;
 
 
 	@Override

@@ -7,10 +7,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TreePrinter implements SpoonElementVisitor {
-	final @NotNull TreeView<String> tree;
-	@Nullable TreeItem<String> currItem;
-	int currLevel;
-	final int levelsToIgnore;
+	private final @NotNull TreeView<String> tree;
+	private @Nullable TreeItem<String> currItem;
+	private int currLevel;
+	private final int levelsToIgnore;
 
 	public TreePrinter(final @NotNull TreeView<String> tree, final int levelsToIgnore) {
 		super();

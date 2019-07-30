@@ -18,12 +18,12 @@ import spoon.reflect.reference.CtReference;
 import spoon.reflect.visitor.CtScanner;
 
 public class SpoonTreeScaner extends CtScanner {
-	final boolean hideImplicit;
-	final @NotNull SpoonElementVisitor printer;
+	private final boolean hideImplicit;
+	private final @NotNull SpoonElementVisitor printer;
 	/** The current deepness level. */
-	int level;
+	private int level;
 	/** the role of the current element. May be null. */
-	@Nullable CtRole currRole;
+	private @Nullable CtRole currRole;
 
 	/**
 	 * @param printer The printer that is in charge of showing the Spoon tree.
