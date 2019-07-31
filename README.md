@@ -2,6 +2,10 @@
 
 A JavaFX app for visualising the Spoon tree of Java code (Java 11 supported).
 
+An alternative to the native GUI support of Spoon ASTs with Spoon:
+
+`$ java -cp spoon...-jar-with-dependencies.jar spoon.Launcher -i class.java --gui --noclasspath`
+
 ## Feature: selection highlighting and implicit elements masking
 
 Put the code in the text area on the left.
