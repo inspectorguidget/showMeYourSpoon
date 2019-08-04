@@ -96,15 +96,15 @@ abstract class SpoonTreeCmdBase extends CommandImpl {
 	void buildClassLevel() {
 		CtModel model = buildCode(code, 1);
 
-		if(model.getRootPackage().getTypes().isEmpty()) {
+		if(model.getAllTypes().isEmpty()) {
 			model = buildClassElementLevel();
 		}
 
-		if(model.getRootPackage().getTypes().isEmpty()) {
+		if(model.getAllTypes().isEmpty()) {
 			model = buildStatementLevel();
 		}
 
-		if(model.getRootPackage().getTypes().isEmpty()) {
+		if(model.getAllTypes().isEmpty()) {
 			buildExpressionLevel();
 		}
 	}
