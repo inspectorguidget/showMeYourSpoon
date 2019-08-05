@@ -6,24 +6,37 @@ An alternative to the native GUI support of Spoon ASTs with Spoon:
 
 `$ java -cp spoon...-jar-with-dependencies.jar spoon.Launcher -i class.java --gui --noclasspath`
 
-## Feature: selection highlighting and implicit elements masking
+**Features**:
+- [selection highlighting](#feature-selection-highlighting)
+- [implicit elements masking](#feature-implicit-elements-masking)
+- [export as text](#feature-export-as-text)
+- [analysis level](#feature-analysis-level)
+- [one argument to load a Java file](#feature-one-argument-to-load-a-java-file)
+
+## Feature: selection highlighting
 
 Put the code in the text area on the left.
-The Spoon tree should then appear (if not maybe the code is not ok).
+The Spoon tree should then appear (if not, maybe the code is not ok).
 
-You can click on a tree element on the right to select the corresponding code (lines) on the left.
-This does not work when the clicked tree item refers to a code element that does not have line position.
-
-The checkbox in the toolbar masks or shows the Java implicit elements (printed with `'(implicit)'` in the tree view).
-
-The button `Save` export the tree view of the current Java code in a text file.
+You can click on a tree element on the right to select the corresponding code elements on the left.
+This does not work when the clicked tree item refers to a code element that does not have a line position.
 
 ![features](doc/appFeat.png)
 
-You can also click in the code area to select the corresponding tree item.
+You can also click on a code element in the code area to select the corresponding tree item.
 On the next picture, the user clicked on `int`:
 
 ![features](doc/appFeat2.png)
+
+
+## Feature: implicit elements masking
+
+The checkbox in the toolbar masks or shows the Java implicit elements (printed with `'(implicit)'` in the tree view).
+
+## Feature: export as text
+
+The button `Save` exports the tree view of the current Java code in a text file.
+
 
 ## Feature: analysis level
 
