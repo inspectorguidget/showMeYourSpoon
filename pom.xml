@@ -4,7 +4,7 @@
 
     <groupId>fr.inria.inspectorguidget</groupId>
     <artifactId>showmeyourspoon</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
     <description>A JavaFX app for visualising the Spoon tree of Java code</description>
 
