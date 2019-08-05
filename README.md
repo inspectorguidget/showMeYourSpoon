@@ -12,8 +12,11 @@ An alternative to the native GUI support of Spoon ASTs with Spoon:
 
 ## How to run
 
-We currently do not provide any packaging of the app.
-To run it, import the `pom.xml` file in your favourite IDE and run the app. 
+The app requires a JDK 11.
+We currently do not provide any packaging of the app (`jlink` cannot package apps having non-modular libraries, such as Spoon).
+
+So, to run the app, run: `mvn clean package`. 
+Then go into the `target/modules` folder and launch: `java --module-path . --add-modules=javafx.controls,javafx.fxml,interacto.javafx,interacto.java.api,spoon.core,org.eclipse.jdt.core,annotations -jar showmeyourspoon-1.2.jar`
 
 ## Features Summary
 
