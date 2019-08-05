@@ -6,7 +6,17 @@ An alternative to the native GUI support of Spoon ASTs with Spoon:
 
 `$ java -cp spoon...-jar-with-dependencies.jar spoon.Launcher -i class.java --gui --noclasspath`
 
-**Features**:
+## Contributors
+
+- @arnobl
+
+## How to run
+
+We currently do not provide any packaging of the app.
+To run it, import the `pom.xml` file in your favourite IDE and run the app. 
+
+## Features Summary
+
 - [selection highlighting](#feature-selection-highlighting)
 - [implicit elements masking](#feature-implicit-elements-masking)
 - [export as text](#feature-export-as-text)
